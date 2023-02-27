@@ -2,4 +2,5 @@
 # write a Bash script that groups visitors by IP 
 # and HTTP status code, and displays this data.
 
-awk '{ print $1,$9 }' apache-access.log | sort | uniq -c | sort -nr
+myfile="apache-access.log"
+awk -F' ' '{ print $1, $9}' $myfile | sort | uniq -c|sort -nr
