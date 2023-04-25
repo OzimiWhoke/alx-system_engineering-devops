@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# a Bash script that creates an RSA key pair
+
+PRIVATE_KEY = "school"
+NO_BITS = "4096"
+
+ssh-keygen -t rsa -b "$NO_BITS" -f "$PRIVATE_KEY" -N "betty"
