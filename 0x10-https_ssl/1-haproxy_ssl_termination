@@ -1,0 +1,12 @@
+# Create a certificate using certbot and configure HAproxy to accept encrypted traffic for your subdomain www
+frontend https-in
+    bind *:443 ssl crt /path/to/ssl/certificate
+    default_backend www-backend
+
+backend www-backend
+    mode http
+    balance roundrobin
+    option httpchk GET /
+    http-check expect status 200
+    server web-01 web-01.example.com:80 check
+    server web-02 web-02.example.com:80 check

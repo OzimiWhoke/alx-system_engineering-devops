@@ -1,0 +1,18 @@
+frontend http
+    bind *:80
+    mode http
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https
+    bind *:443 ssl crt /etc/haproxy/certs/
+    mode http
+    option httplog
+    default_backend servers
+
+backend servers
+    mode http
+    option forwardfor
+    option http-server-close
+    balance roundrobin
+    server server1 web-01:80 check
+    server server2 web-02:80 check
