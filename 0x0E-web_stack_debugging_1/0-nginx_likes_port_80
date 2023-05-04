@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# keeping your Ubuntu container’s Nginx installation from listening on port 80
+apt-get update
+apt-get install -y nginx
+
+# Check if Nginx is already listening on port 80
+netstat -tlnp | grep :80
+if [ $? -eq 0 ]; then
+  echo "Nginx is already listening on port 80"
+  exit 0
+fi
+
+# Add or uncomment the listen directive in Nginx configuration file
+sed -i 's/#\?listen 80;/listen 80;/' /etc/nginx/nginx.conf
+
+# Allow traffic on port 80 in firewall
+ufw allow 80/tcp
+
+# Restart Nginx to apply changes
+systemctl restart nginx
+
+echo "Nginx is now listening on port 80"
