@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# nginx is not running ← for real
+#!/bin/bash
+
+apt-get update
+apt-get install nginx -yq
+sed -i 's/80 default_server;/80 default_server;\n        listen [::]:80 default_server;/g' /etc/nginx/sites-available/default
+service nginx restart
