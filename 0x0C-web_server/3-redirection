@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Configure your Nginx server so that /redirect_me is redirecting to another page.
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+sudo tee /etc/nginx/nginx.conf > /dev/null << EOF
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 768;
+    # multi_accept on;
+}
+
+http {
+    server {
+        listen 80;
+        listen [::]:80;
+        
+        server_name _;
+        
+        location /redirect_me {
+            return 301 http://example.com/new_page;
+        }
+        
+        
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+        
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+        
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        
+        
+    }
+}
+EOF
+
+sudo nginx -t
+
+sudo systemctl restart nginx
