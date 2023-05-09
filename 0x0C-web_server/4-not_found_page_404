@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Configuring Nginx server to have a custom 404 page
+sudo apt update
+sudo apt install nginx
+sudo nano /var/www/html/404.html
+sudo nano /etc/nginx/sites-available/default
+server {
+    # Other server configurations...
+
+    location / {
+        # Other location configurations...
+        error_page 404 /404.html;
+    }
+
+    # Other server configurations...
+}
+sudo nginx -t
+sudo systemctl restart nginx
