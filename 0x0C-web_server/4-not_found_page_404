@@ -2,19 +2,29 @@
 # Configuring Nginx server to have a custom 404 page
 sudo apt update
 sudo apt install nginx
-sudo nano /var/www/html/404.html
-echo "Hello World!" > /var/www/html/404.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-server {
-    # Other server configurations...
 
-    location / {
-        # Other location configurations...
-        error_page 404 /404.html;
+
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
+touch /etc/nginx/html/404.html
+echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
+
+printf %s "server {
+    listen 80;
+    listen [::]:80 default_server;
+    root   /etc/nginx/html;
+    index  index.html index.htm;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 
-    # Other server configurations...
-}
-sudo nano /etc/nginx/sites-available/default
-sudo systemctl restart nginx
+    error_page 404 /404.html;
+    location /404 {
+      root /etc/nginx/html;
+      internal;
+    }
+}" > /etc/nginx/sites-available/default
+
+service nginx restart
