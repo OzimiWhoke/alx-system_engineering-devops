@@ -1,0 +1,21 @@
+what happens when# the g key is pressed?
+
+Immediately the key "g" is pressed, the following processes take place:
+
+1. Keyboard input: The keyboard sends an electrical signal corresponding to the "g" key being pressed.
+
+2. Scan code: The keyboard controller translates the electrical signal into a unique scan code for the "g" key.
+
+3. Operating System: The operating system's keyboard driver receives the scan code from the keyboard controller.
+ 
+4. Event generation: The keyboard driver generates an event indicating that the "g" key has been pressed.
+
+5. Event handling: The operating system's event handling system processes the event.
+
+6. Application focus: If an application window has focus at the time of the keypress, the event is sent to that application.
+
+7. Key mapping: The application or the operating system maps the scan code to a specific character, in this case, the letter "g".
+
+8. Text input: If the application supports text input, the character "g" is typically inserted at the current cursor position in the active text field or document.
+
+9. Command execution: In certain applications or contexts, the "g" key may be associated with a specific command or shortcut, and pressing it can trigger the corresponding action.
