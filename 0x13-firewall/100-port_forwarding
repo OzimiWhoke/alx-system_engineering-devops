@@ -1,0 +1,12 @@
+# Configuring web-01 so that its firewall redirects port 8080/TCP to port 80/TCP
+ssh web-01
+sudo su
+nano /etc/default/ufw
+DEFAULT_FORWARD_POLICY="ACCEPT"
+nano /etc/ufw/before.rules
+*nat
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+COMMIT
+service ufw restart
+curl -I web-01.holberton.online
