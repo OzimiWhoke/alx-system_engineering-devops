@@ -9,4 +9,4 @@ nano /etc/ufw/before.rules
 -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
 COMMIT
 service ufw restart
-curl -I web-01.holberton.online
+ufw status verbose
