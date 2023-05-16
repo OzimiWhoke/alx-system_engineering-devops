@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# a Bash script that configures:
+# nginx must be running as nginx user
+# nginx must be listening on all active IPs on port 8080
+# You cannot use apt-get remove
+service nginx stop
+sed -i 's/user\s*[^;]*/user nginx;/' /etc/nginx/nginx.conf
+chown -R nginx:nginx /var/lib/nginx
+chown -R nginx:nginx /var/log/nginx
+service nginx start
